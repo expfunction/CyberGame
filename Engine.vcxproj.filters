@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Application">
+      <UniqueIdentifier>{D9DE78AF-4594-F1A4-CE88-EB7B3A3DE8A8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{2EB4837C-1AEB-840D-C3D7-6A10AFED000F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Asset">
+      <UniqueIdentifier>{3D53EDCC-290B-2F1A-9212-08767EE9C90A}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\ECS">
+      <UniqueIdentifier>{780F99C2-64DC-F3CD-8DF5-E1757921295C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{7CCE658F-689B-C09A-91B4-AE427DE0F528}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Engine\src\Application\CE_application.hpp">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\CE_global.hpp" />
+    <ClInclude Include="Engine\src\Core\Asset\CE_asset.hpp">
+      <Filter>Core\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\Core\Asset\CE_asset_manager.hpp">
+      <Filter>Core\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\Core\CE_log.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\Core\ECS\CE_ecs.hpp">
+      <Filter>Core\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\Core\ECS\CE_renderable.hpp">
+      <Filter>Core\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\Core\ECS\CE_scene_entity.hpp">
+      <Filter>Core\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\Renderer\CE_geometry.hpp">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\Renderer\CE_renderer.hpp">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\Renderer\CE_texture.hpp">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Engine\src\Application\CE_application.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\CE_global.cpp" />
+    <ClCompile Include="Engine\src\Core\Asset\CE_asset.cpp">
+      <Filter>Core\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\Core\Asset\CE_asset_manager.cpp">
+      <Filter>Core\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\Core\ECS\CE_ecs.cpp">
+      <Filter>Core\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\Core\ECS\CE_renderable.cpp">
+      <Filter>Core\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\Core\ECS\CE_scene_entity.cpp">
+      <Filter>Core\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\Renderer\CE_geometry.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\Renderer\CE_renderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\Renderer\CE_texture.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
