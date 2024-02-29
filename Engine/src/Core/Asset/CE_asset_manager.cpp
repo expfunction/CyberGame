@@ -16,7 +16,11 @@ void AssetManager::Init()
 	CE_LOG_INFO("Asset Manager Initialized, Loading Assets in Resources Folder");
 
 	// Check if the resources folder exists
-	if (!std::filesystem::exists("resources"))
+	std::filesystem::path currentPath = std::filesystem::current_path();
+	std::wstring resourcesPath = currentPath.append("Game\\resources");
+
+
+	if (!std::filesystem::exists(resourcesPath))
 	{
 		CE_LOG_ERROR("Resources Folder does not exist");
 		return;
@@ -24,7 +28,7 @@ void AssetManager::Init()
 
 	// Get all files in the resources folder recursively
 	std::vector<cString> fileList;
-	for (auto& p : std::filesystem::recursive_directory_iterator("resources"))
+	for (auto& p : std::filesystem::recursive_directory_iterator(resourcesPath))
 	{
 		if(!p.is_directory())
 			fileList.push_back(p.path().string());

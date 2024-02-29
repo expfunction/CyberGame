@@ -22,5 +22,7 @@ int main(int argc, char** argv)
     main_app->Init();
     main_app->Run();
 
+    CE_LOG_INFO("Application Terminated");
+
     return 0;
 }
