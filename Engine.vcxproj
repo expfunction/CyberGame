@@ -44,18 +44,18 @@
     <IntDir>obj\Debug\Engine\</IntDir>
     <TargetName>Engine</TargetName>
     <TargetExt>.lib</TargetExt>
-    <PublicIncludeDirectories>$(ProjectDIr)Libraries;$(ProjectDir)Engine\src;</PublicIncludeDirectories>
+    <PublicIncludeDirectories>$(ProjectDir)Libraries;$(ProjectDir)Libraries\glew\include\GL;$(ProjectDir)Libraries\freetype\include;$(ProjectDir)Engine\src;</PublicIncludeDirectories>
     <PublicModuleDirectories>$(ProjectDir)Engine\src;$(PublicIncludeDirectories)</PublicModuleDirectories>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDIr)Libraries;$(ProjectDir)Engine\src;</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)Libraries;$(ProjectDir)Libraries\glew\include\GL;$(ProjectDir)Libraries\freetype\include;$(ProjectDir)Engine\src;</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>bin\Release\</OutDir>
     <IntDir>obj\Release\Engine\</IntDir>
     <TargetName>Engine</TargetName>
     <TargetExt>.lib</TargetExt>
-    <PublicIncludeDirectories>$(ProjectDIr)Libraries;$(ProjectDir)Engine\src;</PublicIncludeDirectories>
+    <PublicIncludeDirectories>$(ProjectDir)Libraries;$(ProjectDir)Libraries\glew\include\GL;$(ProjectDir)Libraries\freetype\include;$(ProjectDir)Engine\src;</PublicIncludeDirectories>
     <PublicModuleDirectories>$(ProjectDir)Engine\src;$(PublicIncludeDirectories)</PublicModuleDirectories>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDIr)Libraries;$(ProjectDir)Engine\src;</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)Libraries;$(ProjectDir)Libraries\glew\include\GL;$(ProjectDir)Libraries\freetype\include;$(ProjectDir)Engine\src;</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

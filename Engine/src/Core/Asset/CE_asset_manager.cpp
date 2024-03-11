@@ -16,9 +16,13 @@ void AssetManager::Init()
 	CE_LOG_INFO("Asset Manager Initialized, Loading Assets in Resources Folder");
 
 	// Check if the resources folder exists
+#if _DEBUG
 	std::filesystem::path currentPath = std::filesystem::current_path();
 	std::wstring resourcesPath = currentPath.append("Game\\resources");
-
+#else
+	std::filesystem::path currentPath = std::filesystem::current_path();
+	std::wstring resourcesPath = currentPath.append("..\\..\\Game\\resources");
+#endif
 
 	if (!std::filesystem::exists(resourcesPath))
 	{

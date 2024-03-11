@@ -22,7 +22,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include <GLEW/glew.h>
+#include <glew.h>
 #include <GLFW/glfw3.h>
 
 #include <libpng/include/png.h>
