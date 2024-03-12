@@ -15,18 +15,19 @@ void AssetManager::Init()
 {
 	CE_LOG_INFO("Asset Manager Initialized, Loading Assets in Resources Folder");
 
-	// Check if the resources folder exists
-#if _DEBUG
+	// Find the resources folder
 	std::filesystem::path currentPath = std::filesystem::current_path();
+	if (currentPath.filename() == "bin" ) 
+		currentPath = currentPath.parent_path();
+	if (currentPath.filename() == "Debug" || currentPath.filename() == "Release")
+		currentPath = currentPath.parent_path().parent_path();
+
 	std::wstring resourcesPath = currentPath.append("Game\\resources");
-#else
-	std::filesystem::path currentPath = std::filesystem::current_path();
-	std::wstring resourcesPath = currentPath.append("..\\..\\Game\\resources");
-#endif
 
 	if (!std::filesystem::exists(resourcesPath))
 	{
-		CE_LOG_ERROR("Resources Folder does not exist");
+		CE_LOG_ERROR("Resources Folder does not exist. Press Enter to continue");
+		getchar();
 		return;
 	}
 
