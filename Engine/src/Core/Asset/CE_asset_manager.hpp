@@ -13,6 +13,7 @@ namespace CyberEngine {
 		static AssetManager* asset_manager_;
 		std::unordered_map<CUID, Asset> assets;
 		std::unordered_map<CUID, Texture> textures;
+		std::unordered_map<CUID, Mesh> meshes;
 
 	public:
 		AssetManager(AssetManager& other) = delete;
@@ -26,5 +27,6 @@ namespace CyberEngine {
 		void RemoveAsset(cString name);
 		Asset GetAsset(cString name);
 		Texture* GetTexture(cString name);
+		Mesh* GetMesh(cString name);
 	};
 }

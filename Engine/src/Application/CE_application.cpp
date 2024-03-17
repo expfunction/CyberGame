@@ -87,6 +87,9 @@ void Application::Init()
         return;
     }
 
+    // Initialize Entity Component System
+    CE_LOG_INFO("Initializing ECS");
+
     // Initialize asset manager
     CE_LOG_INFO("Initializing Asset Manager");
     asset_manager_ = AssetManager::GetInstance();
@@ -97,6 +100,7 @@ void Application::Init()
     renderer_ = Renderer::GetInstance();
     renderer_->Init(render_width, render_height, main_window_, asset_manager_);
     return;
+
 }
 
 void Application::Run()

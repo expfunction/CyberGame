@@ -62,14 +62,30 @@ void AssetManager::Init()
 
 			// Add asset to the textures map
 			textures.insert(std::pair<CUID, Texture>(tmpTexture->GetID(), *tmpTexture));
+		}
+		// Check if the file is a model
+		else if (extension == "obj")
+		{
+			// Get the file name without the path and extension
+			std::string fileName = file.substr(file.find_last_of("\\") + 1, file.find_last_of(".") - file.find_last_of("\\") - 1);
 
+			CE_LOG_INFO("Loading Model: " + file);
+
+			// Create model asset
+			Mesh *tmpModel = new Mesh(file, fileName);
+
+			// Add asset to assets
+			assets.insert(std::pair<CUID, Asset>(tmpModel->GetID(), *tmpModel));
+
+			// Add asset to the models map
+			meshes.insert(std::pair<CUID, Mesh>(tmpModel->GetID(), *tmpModel));
 		}
 	}
 
 	CE_LOG_INFO("Asset Manager Initialized");
 }
 
-Texture* CyberEngine::AssetManager::GetTexture(cString name)
+Texture* AssetManager::GetTexture(cString name)
 {
 	// Search for the texture in the textures map
 	for (auto& texture : textures)
@@ -82,5 +98,21 @@ Texture* CyberEngine::AssetManager::GetTexture(cString name)
 
 	// If texture is not found, return a default texture
 	CE_LOG_ERROR("Texture {0} not found", name);
+	return nullptr;
+}
+
+Mesh* AssetManager::GetMesh(cString name)
+{
+	// Search for the model in the models map
+	for (auto& model : meshes)
+	{
+		if (model.second.GetName() == name)
+		{
+			return &model.second;
+		}
+	}
+
+	// If model is not found, return a default model
+	CE_LOG_ERROR("Model {0} not found", name);
 	return nullptr;
 }

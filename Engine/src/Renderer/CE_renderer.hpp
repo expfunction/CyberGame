@@ -16,6 +16,8 @@ namespace CyberEngine {
 			GLfloat yZoomFactor;
 			GLfloat xZoomFactor;
 
+			SceneEntity* currentScene;
+
 			// Private Functions
 			// Constructor
 			Renderer()
@@ -80,6 +82,13 @@ namespace CyberEngine {
 			void DrawScene();
 			// Clear Screen Method
 			void ClearScreen();
+
+			// Scene Methods
+			// Load Scene
+			void LoadScene(const std::string& sceneName);
+			// Unload Scene
+			void UnloadScene(const std::string& sceneName);
+
 
 			// Utility Functions
 			// Convert GLubyte to Color

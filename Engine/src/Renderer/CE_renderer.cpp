@@ -289,7 +289,7 @@ void Renderer::DrawScreen()
 	Triangle t1 = Triangle(v1, v2, v3);
 	
 	// Basic transformations workflow
-	// Moel vector data
+	// Model vector data
 	const cVec3 position(0.0f);
 	const cVec3 rotationD(0.0f);
 	const cVec3 scale(1.0f);

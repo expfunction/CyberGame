@@ -49,6 +49,9 @@
     <ClInclude Include="Engine\src\Renderer\CE_texture.hpp">
       <Filter>Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\src\Renderer\CE_mesh.hpp">
+      <Filter>Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\src\Application\CE_application.cpp">
@@ -77,6 +80,9 @@
       <Filter>Renderer</Filter>
     </ClCompile>
     <ClCompile Include="Engine\src\Renderer\CE_texture.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\Renderer\CE_mesh.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
   </ItemGroup>

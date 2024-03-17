@@ -111,6 +111,7 @@
     <ClInclude Include="Engine\src\Core\ECS\CE_renderable.hpp" />
     <ClInclude Include="Engine\src\Core\ECS\CE_scene_entity.hpp" />
     <ClInclude Include="Engine\src\Renderer\CE_geometry.hpp" />
+    <ClInclude Include="Engine\src\Renderer\CE_mesh.hpp" />
     <ClInclude Include="Engine\src\Renderer\CE_renderer.hpp" />
     <ClInclude Include="Engine\src\Renderer\CE_texture.hpp" />
   </ItemGroup>
@@ -126,6 +127,7 @@
     <ClCompile Include="Engine\src\Core\ECS\CE_renderable.cpp" />
     <ClCompile Include="Engine\src\Core\ECS\CE_scene_entity.cpp" />
     <ClCompile Include="Engine\src\Renderer\CE_geometry.cpp" />
+    <ClCompile Include="Engine\src\Renderer\CE_mesh.cpp" />
     <ClCompile Include="Engine\src\Renderer\CE_renderer.cpp" />
     <ClCompile Include="Engine\src\Renderer\CE_texture.cpp" />
   </ItemGroup>
