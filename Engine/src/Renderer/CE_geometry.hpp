@@ -63,11 +63,14 @@ namespace CyberEngine {
 
 		cVec2 texCoord = cVec2(0.0f);
 
+		cVec2 uv = cVec2(0.0f);
+
 		Color color = Color(255, 255, 255, 255);
 
 		Vertex() = default;
 		~Vertex() = default;
 		Vertex(cVec3 pos, Color col) : position(pos), color(col), texCoord(0.0f) {}
+		Vertex(cVec3 pos, Color col, cVec2 uv) : position(pos), color(col), texCoord(uv) {}
 		Vertex(cVec3 pos) : position(pos), color(Color(255, 255, 255, 255)), texCoord(0.0f) {}
 		Vertex(cVec3 pos, cVec3 norm) : position(pos), normal(norm), color(Color(255, 255, 255, 255)), texCoord(0.0f) {}
 		Vertex(cVec3 pos, cVec3 norm, Color col) : position(pos), normal(norm), color(col), texCoord(0.0f) {}
@@ -82,6 +85,7 @@ namespace CyberEngine {
 			this->color = rhs.color;
 			this->texCoord = rhs.texCoord;
 			this->normal = rhs.normal;
+			this->uv = rhs.uv;
 			return *this;
 		}
 
