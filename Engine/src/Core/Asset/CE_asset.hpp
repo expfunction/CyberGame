@@ -14,14 +14,15 @@ namespace CyberEngine {
 
 	class Asset {
 	private:
+		// Generate a UUID for the asset
+		CUID GenerateUUID();
+	public:
+		// Asset Variables
 		CUID id;
 		cString path;
 		cString name;
 		AssetType type;
 
-		// Generate a UUID for the asset
-		CUID GenerateUUID();
-	public:
 		// Default constructor
 		Asset() {
 			//CE_LOG_INFO("Default constructor for asset!");

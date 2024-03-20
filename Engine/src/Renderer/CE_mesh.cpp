@@ -2,9 +2,10 @@
 
 using namespace CyberEngine;
 
-Mesh::Mesh(const cString& path, const cString& name)
+Mesh::Mesh(const cString& path, const cString& mName)
 {
 	// Set Name
+	name = mName;
 
 	// Initialize buffers
 	vertices = std::vector<Vertex>();

@@ -42,17 +42,17 @@ void AssetManager::Init()
 	// Load all assets
 	for (auto& file : fileList)
 	{
-		CE_LOG_INFO("Loading Asset: " + file);
 		// Parse the file extension
 		std::string extension = file.substr(file.find_last_of(".") + 1);
 
 		// Check if the file is a texture
 		if (extension == "png" || extension == "jpg" || extension == "jpeg" || extension == "tga")
 		{
+
 			// Get the file name without the path and extension
 			std::string fileName = file.substr(file.find_last_of("\\") + 1, file.find_last_of(".") - file.find_last_of("\\") - 1);
 
-			CE_LOG_INFO("Loading Texture: " + file);
+			//CE_LOG_INFO("Loading Texture: " + file);
 
 			// Create texture asset
 			Texture *tmpTexture = new Texture(file, fileName);
@@ -66,10 +66,10 @@ void AssetManager::Init()
 		// Check if the file is a model
 		else if (extension == "obj")
 		{
+			CE_LOG_INFO("Loading Mesh: " + file);
+
 			// Get the file name without the path and extension
 			std::string fileName = file.substr(file.find_last_of("\\") + 1, file.find_last_of(".") - file.find_last_of("\\") - 1);
-
-			CE_LOG_INFO("Loading Model: " + file);
 
 			// Create model asset
 			Mesh *tmpModel = new Mesh(file, fileName);
@@ -79,6 +79,7 @@ void AssetManager::Init()
 
 			// Add asset to the models map
 			meshes.insert(std::pair<CUID, Mesh>(tmpModel->GetID(), *tmpModel));
+
 		}
 	}
 

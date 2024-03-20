@@ -59,7 +59,7 @@ void Renderer::Init(GLint width, GLint height, GLFWwindow* window_reference, Ass
 	SetPixelZoomGL(xZoomFactor, yZoomFactor);
 }
 
-void CyberEngine::Renderer::SetPixelZoomGL(GLfloat xZoomFactor, GLfloat yZoomFactor)
+void Renderer::SetPixelZoomGL(GLfloat xZoomFactor, GLfloat yZoomFactor)
 {
 	glPixelZoom(xZoomFactor, yZoomFactor);
 }
@@ -187,7 +187,7 @@ void Renderer::DrawTriangle(const Vertex& v1, const Vertex& v2, const Vertex& v3
 	}
 }
 
-void CyberEngine::Renderer::DrawQuad(const Vertex& v1, const Vertex& v2, const Vertex& v3, const Vertex& v4, Texture* texture)
+void Renderer::DrawQuad(const Vertex& v1, const Vertex& v2, const Vertex& v3, const Vertex& v4, Texture* texture)
 {
 	// Check if triangle is out of bounds
 	if (v1.position.x < -1.0f || v1.position.x > 1.0f || v1.position.y < -1.0f || v1.position.y > 1.0f ||
@@ -272,6 +272,54 @@ void Renderer::DrawTexturedQuad(const cVec2& screenPos, const cVec2& textureSize
 	}
 }
 
+void Renderer::DrawMesh(Mesh* mesh, Texture* texture, cVec3 cameraPosition, cVec3 cameraDirection, cMat4 modelMatrix)
+{
+	// Get triangle list
+	std::vector<Triangle> triangles = mesh->GetTriangles();
+ 
+	// Transform vertices
+	for (auto& triangle : triangles)
+	{
+		// Transform vertices
+		triangle.v1.position = cVec3(modelMatrix * cVec4(triangle.v1.position, 1.0f));
+		triangle.v2.position = cVec3(modelMatrix * cVec4(triangle.v2.position, 1.0f));
+		triangle.v3.position = cVec3(modelMatrix * cVec4(triangle.v3.position, 1.0f));
+
+		// Update normals
+		triangle.v1.normal = cVec3(modelMatrix * cVec4(triangle.v1.normal, 0.0f));
+		triangle.v2.normal = cVec3(modelMatrix * cVec4(triangle.v2.normal, 0.0f));
+		triangle.v3.normal = cVec3(modelMatrix * cVec4(triangle.v3.normal, 0.0f));
+	}
+
+	// Eliminate back faces
+	triangles.erase(std::remove_if(triangles.begin(), triangles.end(), [&](Triangle& t) {
+		// Calculate normal
+		cVec3 normal = glm::normalize(glm::cross(t.v2.position - t.v1.position, t.v3.position - t.v1.position));
+		// Calculate camera vector
+		cVec3 cameraVector = glm::normalize(cameraPosition - t.v1.position);
+		// Calculate dot product
+		GLfloat dotProduct = glm::dot(normal, cameraVector);
+		// If dot product is less than 0, triangle is back face
+		return dotProduct < 0.0f;
+	}), triangles.end());
+
+	// Sort triangles by depth depending on camera direction
+	std::sort(triangles.begin(), triangles.end(), [&](Triangle& t1, Triangle& t2) {
+		// Calculate depth
+		GLfloat depth1 = glm::dot(cameraDirection, t1.v1.position);
+		GLfloat depth2 = glm::dot(cameraDirection, t2.v1.position);
+		// Return depth comparison
+		return depth1 > depth2;
+	});
+
+	// Loop through triangles
+	for (auto& triangle : triangles)
+	{
+		// Draw triangle
+		DrawTriangle(triangle.v1, triangle.v2, triangle.v3);
+	}
+}
+
 void Renderer::DrawScreen()
 {
 	/* Testing Area */
@@ -295,9 +343,9 @@ void Renderer::DrawScreen()
 	const cVec3 scale(1.0f);
 	// Model Matrices
 	const cMat4 m_model	= cMat4(1.0f); // Identity matrix
-	const cMat4 m_translate	= glm::translate(m_model,	cVec3(0.0f, 0.0f, 0.0f)); // Translation Matrix
-	const cMat4 m_scale		= glm::scale	(m_model,	cVec3(1.0f)); // Scaling Matrix
-	const cMat4 m_rotate	= glm::rotate	(m_model, ttime, cVec3(0.0f, 1.0f, 1.0f)); // Rotation Matrix
+	const cMat4 m_translate	= glm::translate(m_model,	cVec3(0.0f, -0.5f, 0.0f)); // Translation Matrix
+	const cMat4 m_scale		= glm::scale	(m_model,	cVec3(0.4f)); // Scaling Matrix
+	const cMat4 m_rotate	= glm::rotate	(m_model, ttime, cVec3(0.0f, 1.0f, 0.0f)); // Rotation Matrix
 	/* End Testing Area */
 
 	/*3D Projection Test Area */
@@ -322,15 +370,20 @@ void Renderer::DrawScreen()
 	/* Transformations Test Area */
 	const cMat4 m_MVP = m_perspective * m_view * m_translate * m_rotate * m_scale;
 
+
 	// Transform texture coordinates
-	Vertex tv1((cVec3)(m_MVP * cVec4(v1.position, 1.0f))); tv1.color = v1.color; tv1.texCoord = cVec2(1.0f, 1.0f);
+	/*Vertex tv1((cVec3)(m_MVP * cVec4(v1.position, 1.0f))); tv1.color = v1.color; tv1.texCoord = cVec2(1.0f, 1.0f);
 	Vertex tv2((cVec3)(m_MVP * cVec4(v2.position, 1.0f))); tv2.color = v2.color; tv2.texCoord = cVec2(1.0f, 0.0f);
 	Vertex tv3((cVec3)(m_MVP * cVec4(v3.position, 1.0f))); tv3.color = v3.color; tv3.texCoord = cVec2(0.0f, 0.0f);
-	Vertex tv4((cVec3)(m_MVP * cVec4(v4.position, 1.0f))); tv4.color = v4.color; tv4.texCoord = cVec2(0.0f, 1.0f);
+	Vertex tv4((cVec3)(m_MVP * cVec4(v4.position, 1.0f))); tv4.color = v4.color; tv4.texCoord = cVec2(0.0f, 1.0f);*/
 
 	/* Clear Color Framebuffer */
 	ClearScreen();
 
+	// Draw Mesh
+	DrawMesh(rAssetManager->GetMesh("quaddamage"), rAssetManager->GetTexture("skin0"), cameraPos, cameraFront, m_MVP);
+
+	/*
 	DrawTriangle(tv1, tv2, tv3);
 	DrawTriangle(tv4, tv1, tv3);
 	//DrawQuad(tv1, tv2, tv3, tv4, r_asset_manager_->GetTexture("1222"));
