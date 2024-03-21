@@ -359,15 +359,16 @@ void Renderer::DrawScreen()
 	Triangle t1 = Triangle(v1, v2, v3);*/
 	
 	// Basic transformations workflow
-	// Model vector data
-	const cVec3 position(0.0f);
-	const cVec3 rotationD(0.0f);
-	const cVec3 scale(1.0f);
 	// Model Matrices
 	const cMat4 m_model	= cMat4(1.0f); // Identity matrix
-	const cMat4 m_translate	= glm::translate(m_model,	cVec3(0.0f, -1.0f, 0.0f)); // Translation Matrix
+	const cMat4 m_translate	= glm::translate(m_model,	cVec3(1.0f, -1.0f, 0.0f)); // Translation Matrix
 	const cMat4 m_scale		= glm::scale	(m_model,	cVec3(0.04f)); // Scaling Matrix
 	const cMat4 m_rotate	= glm::rotate	(m_model, ttime, cVec3(0.0f, 1.0f, 0.0f)); // Rotation Matrix
+	//Jill
+	const cMat4 m_model1 = cMat4(1.0f); // Identity matrix
+	const cMat4 m_translate1 = glm::translate(m_model1, cVec3(-1.0f, -1.0f, 0.0f)); // Translation Matrix
+	const cMat4 m_scale1 = glm::scale(m_model1, cVec3(0.04f)); // Scaling Matrix
+	const cMat4 m_rotate1 = glm::rotate(m_model1, ttime, cVec3(0.0f, 1.0f, 0.0f)); // Rotation Matrix
 	/* End Testing Area */
 
 	/*3D Projection Test Area */
@@ -391,6 +392,7 @@ void Renderer::DrawScreen()
 	/* Fill the back buffer */
 	/* Transformations Test Area */
 	const cMat4 m_MVP = m_perspective * m_view * m_translate * m_rotate * m_scale;
+	const cMat4 m_MVP1 = m_perspective * m_view * m_translate1 * m_rotate1 * m_scale1;
 	// Transform texture coordinates
 	/*Vertex tv1((cVec3)(m_MVP * cVec4(v1.position, 1.0f))); tv1.color = v1.color; tv1.texCoord = cVec2(1.0f, 1.0f);
 	Vertex tv2((cVec3)(m_MVP * cVec4(v2.position, 1.0f))); tv2.color = v2.color; tv2.texCoord = cVec2(1.0f, 0.0f);
@@ -400,9 +402,9 @@ void Renderer::DrawScreen()
 	/* Clear Color Framebuffer */
 	ClearScreen();
 
-	// Draw Mesh
+	// Draw Meshes
 	DrawMesh(rAssetManager->GetMesh("leon"), rAssetManager->GetTexture("EMD48"), cameraPos, cameraFront, m_MVP);
-
+	DrawMesh(rAssetManager->GetMesh("Jill"), rAssetManager->GetTexture("CHAR11"), cameraPos, cameraFront, m_MVP1);
 	/*
 	DrawTriangle(tv1, tv2, tv3);
 	DrawTriangle(tv4, tv1, tv3);
