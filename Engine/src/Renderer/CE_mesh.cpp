@@ -25,6 +25,7 @@ Mesh::Mesh(const cString& path, const cString& mName)
 	std::string line;
 	GLuint vertexIndex = 0;
 	GLuint texCoordIndex = 0;
+	GLuint triangleId = 0;
 
 	while (std::getline(file, line)) {
 		std::istringstream iss(line);
@@ -60,9 +61,8 @@ Mesh::Mesh(const cString& path, const cString& mName)
 			triangle.v2.normal = normals[vn2 - 1];
 			triangle.v3.normal = normals[vn3 - 1];
 
-			// Calculate Triangle Normal
-			cVec3 normal = glm::normalize(glm::cross(triangle.v2.position - triangle.v1.position, triangle.v3.position - triangle.v1.position));
-			triangle.normal = normal;
+			triangle.id = triangleId;
+			triangleId++;
 
 			// Add Triangle to Triangles
 			triangles.push_back(triangle);

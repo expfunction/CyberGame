@@ -63,7 +63,7 @@ namespace CyberEngine {
 			static Renderer* GetInstance();
 			
 			// Initialize Renderer
-			void Init(GLint width, GLint height, GLFWwindow *windowReference, AssetManager* assetManager);
+			void Init(GLint width, GLint height, GLFWwindow* windowReference, AssetManager* assetManager);
 			// Set Pixel Zoom for GLFW
 			void SetPixelZoomGL(GLfloat xZoomFactor, GLfloat yZoomFactor);
 			// Draw Pixel
@@ -71,13 +71,13 @@ namespace CyberEngine {
 			// Bresenhams Line Drawing Algorithm
 			void DrawLine(const Vertex& start, const Vertex& end, const Color& p);
 			// Draw Edge Function Triangle
-			void DrawTriangle(const Vertex& v1, const Vertex& v2, const Vertex& v3);
+			void DrawTriangle(const Vertex& v1, const Vertex& v2, const Vertex& v3, Texture* textureBuffer);
 			// Draw Quad
 			void DrawQuad(const Vertex& v1, const Vertex& v2, const Vertex& v3, const Vertex& v4, Texture* textureBuffer);
 			// Draw Texture Directly
 			void DrawTexturedQuad(const cVec2& screenPos, const cVec2& textureSize, Color* textureBuffer);
 			// Draw Mesh
-			void DrawMesh(Mesh* mesh, Texture* texture, cVec3 cameraPosition, cVec3 cameraDirection, cMat4 modelMatrix); // TODO: Add Camera
+			void DrawMesh(Mesh* mesh, Texture* texture, const cVec3& cameraPosition, const cVec3& cameraDirection, const cMat4& modelMatrix); // TODO: Add Camera
 			// Draw Screen Method
 			void DrawScreen();
 			// Draw Scene Method

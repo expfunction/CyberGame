@@ -63,8 +63,6 @@ namespace CyberEngine {
 
 		cVec2 texCoord = cVec2(0.0f);
 
-		cVec2 uv = cVec2(0.0f);
-
 		Color color = Color(255, 255, 255, 255);
 
 		Vertex() = default;
@@ -85,7 +83,6 @@ namespace CyberEngine {
 			this->color = rhs.color;
 			this->texCoord = rhs.texCoord;
 			this->normal = rhs.normal;
-			this->uv = rhs.uv;
 			return *this;
 		}
 
@@ -108,6 +105,9 @@ namespace CyberEngine {
 
 	struct Triangle
 	{
+		GLuint id = 0;
+		bool isCulled = false;
+
 		Vertex v1;
 		Vertex v2;
 		Vertex v3;

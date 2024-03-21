@@ -121,16 +121,16 @@ void Renderer::DrawLine(const Vertex& start, const Vertex& end, const Color& p)
 	}
 }
 
-void Renderer::DrawTriangle(const Vertex& v1, const Vertex& v2, const Vertex& v3)
+void Renderer::DrawTriangle(const Vertex& v1, const Vertex& v2, const Vertex& v3, Texture* textureBuffer)
 {
-	// Check if triangle is out of bounds
+// Check if triangle is out of bounds
 	if (v1.position.x < -1.0f || v1.position.x > 1.0f || v1.position.y < -1.0f || v1.position.y > 1.0f ||
 		v2.position.x < -1.0f || v2.position.x > 1.0f || v2.position.y < -1.0f || v2.position.y > 1.0f ||
 		v3.position.x < -1.0f || v3.position.x > 1.0f || v3.position.y < -1.0f || v3.position.y > 1.0f)
 	{
 		return;
 	}
-	
+
 	// Convert vertices into screen coordinates
 	GLfloat x1 = (glm::floor((v1.position.x + 1.0f) * (GLfloat)(width / 2)));
 	GLfloat y1 = (glm::floor((v1.position.y + 1.0f) * (GLfloat)(height / 2)));
@@ -160,64 +160,18 @@ void Renderer::DrawTriangle(const Vertex& v1, const Vertex& v2, const Vertex& v3
 	// Calculate denominator for normalizing u, v and w
 	GLfloat denom = d00 * d11 - d01 * d01;
 
-	// Get texture data and properties
-	Color* textureData = rAssetManager->GetTexture("skin0")->GetData();
-	GLint textureWidth = rAssetManager->GetTexture("skin0")->GetWidth();
-	GLint textureHeight = rAssetManager->GetTexture("skin0")->GetHeight();
+	// Store texture width and height
+	const GLint tWidth = textureBuffer->GetWidth();
+	const GLint tHeight = textureBuffer->GetHeight();
+
+	// Store texture data
+	Color* textureData = textureBuffer->GetData();
 
 	// Loop bounding box
 	for (GLuint y = yMin; y < yMax; y++) {
 		for (GLuint x = xMin; x < xMax; x++) {
 
-			// Convert screen coordinates to normalized coordinates
-			GLfloat u = (GLfloat)(x - x1) / (GLfloat)(x2 - x1);
-			GLfloat v = (GLfloat)(y - y1) / (GLfloat)(y3 - y1);
-			GLfloat w = 1.0f - u - v;
-
-			// Check if pixel is inside triangle
-			if (u >= 0.0f && v >= 0.0f && w >= 0.0f) {
-				// Calculate texture coordinates
-				GLint tx = (GLint)((u * v1.texCoord.x + v * v2.texCoord.x + w * v3.texCoord.x) * textureWidth);
-				GLint ty = (GLint)((u * v1.texCoord.y + v * v2.texCoord.y + w * v3.texCoord.y) * textureHeight);
-
-				// Calculate UV coordinates
-				GLfloat uCoord = u * v1.uv.x + v * v2.uv.x + w * v3.uv.x;
-				GLfloat vCoord = u * v1.uv.y + v * v2.uv.y + w * v3.uv.y;
-
-				// Get color data from texture using UV coordinates
-				Color color = textureData[ty * textureWidth + tx];
-
-				// Draw pixel to framebuffer
-				mainFramebuffer[y * width + x] = Color(255,255,255,255);
-
-				/*Color color = textureData[ty * textureWidth + tx];
-
-				// If alpha is 0, skip pixel
-				if (color.a == 0) continue;
-
-				// If alpha is 255, set pixel directly
-				if (color.a == 255)
-				{
-					mainFramebuffer[y * width + x] = color;
-					continue;
-				}
-
-				// If alpha is between 0 and 255, blend pixel
-				// Get pixel from framebuffer
-				Color pixel = mainFramebuffer[y * width + x];
-
-				// Calculate alpha
-				GLfloat alpha = (GLfloat)color.a / 255.0f;
-
-				// Calculate blended color
-				Color blendedColor = (color * alpha) + (pixel * (1.0f - alpha));
-
-				// Set blended color to framebuffer
-				mainFramebuffer[y * width + x] = blendedColor;*/
-				
-			}
-
-			/*// Generate P vectors
+			// Generate P vectors
 			cVec3 v1p(x - x1, y - y1, 0.0f); // = P.position - triangle.A.position;
 
 			// Calculate dot product values
@@ -230,12 +184,30 @@ void Renderer::DrawTriangle(const Vertex& v1, const Vertex& v2, const Vertex& v3
 			const GLfloat u = 1.0f - v - w;
 
 			if (u>=0.0f && v >= 0.0f && w >= 0.0f) {
-				const Color col1 = v1.color * u;
+				// Sample texture
+				if (textureBuffer != nullptr)
+				{
+					// Get texture coordinates
+					cVec2 texCoord = (v1.texCoord * u) + (v2.texCoord * v) + (v3.texCoord * w);
+
+					// Get texture color
+					Color texColor = textureData[(GLint)(texCoord.y * tHeight) * tWidth + (GLint)(texCoord.x * tWidth)];
+
+					// Draw pixel
+					mainFramebuffer[y * width + x] = texColor;
+				}
+				else
+				{
+					// Draw pixel
+					mainFramebuffer[y * width + x] = v1.color;
+				}
+
+				/*const Color col1 = v1.color * u;
 				const Color col2 = v2.color * v;
 				const Color col3 = v3.color * w;
 				const Color fcol = (col1 + col2) + col3;
-				mainFramebuffer[y * width + x] = fcol;
-			}*/
+				mainFramebuffer[y * width + x] = fcol;*/
+			}
 		}
 	}
 }
@@ -250,7 +222,6 @@ void Renderer::DrawQuad(const Vertex& v1, const Vertex& v2, const Vertex& v3, co
 	{
 		return;
 	}
-
 }
 
 /// <summary>
@@ -325,7 +296,7 @@ void Renderer::DrawTexturedQuad(const cVec2& screenPos, const cVec2& textureSize
 	}
 }
 
-void Renderer::DrawMesh(Mesh* mesh, Texture* texture, cVec3 cameraPosition, cVec3 cameraDirection, cMat4 modelMatrix)
+void Renderer::DrawMesh(Mesh* mesh, Texture* texture, const cVec3& cameraPosition, const cVec3& cameraDirection, const cMat4& modelMatrix)
 {
 	// Get triangle list
 	std::vector<Triangle> triangles = mesh->GetTriangles();
@@ -338,20 +309,36 @@ void Renderer::DrawMesh(Mesh* mesh, Texture* texture, cVec3 cameraPosition, cVec
 		triangle.v2.position = cVec3(modelMatrix * cVec4(triangle.v2.position, 1.0f));
 		triangle.v3.position = cVec3(modelMatrix * cVec4(triangle.v3.position, 1.0f));
 
-		// Transform normals using inverse transpose of model matrix
-		cMat4 normalMatrix = glm::transpose(glm::inverse(modelMatrix));
-		triangle.v1.normal = cVec3(normalMatrix * cVec4(triangle.v1.normal, 0.0f));
-		triangle.v2.normal = cVec3(normalMatrix * cVec4(triangle.v2.normal, 0.0f));
-		triangle.v3.normal = cVec3(normalMatrix * cVec4(triangle.v3.normal, 0.0f));
+		// Transform normals
+		triangle.v1.normal = cVec3(modelMatrix * cVec4(triangle.v1.normal, 0.0f));
+		triangle.v2.normal = cVec3(modelMatrix * cVec4(triangle.v2.normal, 0.0f));
+		triangle.v3.normal = cVec3(modelMatrix * cVec4(triangle.v3.normal, 0.0f));
 
-		// Eliminate back faces
-		cVec3 normal = glm::normalize(glm::cross(triangle.v2.position - triangle.v1.position, triangle.v3.position - triangle.v1.position));
-		cVec3 view = glm::normalize(cameraPosition - triangle.v1.position);
-		GLfloat dotProduct = glm::dot(normal, view);
-		if (dotProduct < 0.0f) continue;
+		// Calculate triangle normal
+		triangle.normal = glm::normalize(glm::cross(triangle.v2.position - triangle.v1.position, triangle.v3.position - triangle.v1.position));
+
+		// Check if triangle is backfacing
+		if (glm::dot(triangle.normal, cameraDirection) > 0.0f) triangle.isCulled = true; else triangle.isCulled = false;
+	}
+
+	// Sort triangles by distance to camera
+	std::sort(triangles.begin(), triangles.end(), [cameraPosition](const Triangle& t1, const Triangle& t2) {
+		// Calculate distance to camera
+		GLfloat d1 = glm::distance(cameraPosition, t1.v1.position);
+		GLfloat d2 = glm::distance(cameraPosition, t2.v1.position);
+
+		// Return true if t1 is closer to camera
+		return d1 < d2;
+	});
+
+	// Loop through triangles
+	for (auto& triangle : triangles)
+	{
+		// Check if triangle is culled
+		if (triangle.isCulled) continue;
 
 		// Draw triangle
-		DrawTriangle(triangle.v1, triangle.v2, triangle.v3);
+		DrawTriangle(triangle.v1, triangle.v2, triangle.v3, texture);
 	}
 }
 
@@ -379,14 +366,14 @@ void Renderer::DrawScreen()
 	// Model Matrices
 	const cMat4 m_model	= cMat4(1.0f); // Identity matrix
 	const cMat4 m_translate	= glm::translate(m_model,	cVec3(0.0f, -1.0f, 0.0f)); // Translation Matrix
-	const cMat4 m_scale		= glm::scale	(m_model,	cVec3(0.4f)); // Scaling Matrix
+	const cMat4 m_scale		= glm::scale	(m_model,	cVec3(0.04f)); // Scaling Matrix
 	const cMat4 m_rotate	= glm::rotate	(m_model, ttime, cVec3(0.0f, 1.0f, 0.0f)); // Rotation Matrix
 	/* End Testing Area */
 
 	/*3D Projection Test Area */
 	// Set Up Camera Properties
-	const cVec3 cameraPos	= cVec3(0.0f, 0.0f, 3.0f);
-	const cVec3 cameraFront = cVec3(0.0f, 0.0f, -1.0f);
+	const cVec3 cameraPos	= cVec3(0.0f, 0.0f, -3.0f);
+	const cVec3 cameraFront = cVec3(0.0f, 0.0f, 1.0f);
 	const cVec3 cameraUp	= cVec3(0.0f, 1.0f, 0.0f);
 
 	// Setup MVP starting with Projection
@@ -404,8 +391,6 @@ void Renderer::DrawScreen()
 	/* Fill the back buffer */
 	/* Transformations Test Area */
 	const cMat4 m_MVP = m_perspective * m_view * m_translate * m_rotate * m_scale;
-
-
 	// Transform texture coordinates
 	/*Vertex tv1((cVec3)(m_MVP * cVec4(v1.position, 1.0f))); tv1.color = v1.color; tv1.texCoord = cVec2(1.0f, 1.0f);
 	Vertex tv2((cVec3)(m_MVP * cVec4(v2.position, 1.0f))); tv2.color = v2.color; tv2.texCoord = cVec2(1.0f, 0.0f);
@@ -416,7 +401,7 @@ void Renderer::DrawScreen()
 	ClearScreen();
 
 	// Draw Mesh
-	DrawMesh(rAssetManager->GetMesh("quaddamage"), rAssetManager->GetTexture("skin0"), cameraPos, cameraFront, m_MVP);
+	DrawMesh(rAssetManager->GetMesh("leon"), rAssetManager->GetTexture("EMD48"), cameraPos, cameraFront, m_MVP);
 
 	/*
 	DrawTriangle(tv1, tv2, tv3);
