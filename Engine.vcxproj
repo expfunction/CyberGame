@@ -110,12 +110,15 @@
     <ClInclude Include="Engine\src\Core\ECS\CE_ecs.hpp" />
     <ClInclude Include="Engine\src\Core\ECS\CE_renderable.hpp" />
     <ClInclude Include="Engine\src\Core\ECS\CE_scene_entity.hpp" />
+    <ClInclude Include="Engine\src\Core\ECS\CE_transform.hpp" />
+    <ClInclude Include="Engine\src\Core\File\CE_file.hpp" />
     <ClInclude Include="Engine\src\Renderer\CE_geometry.hpp" />
-    <ClInclude Include="Engine\src\Renderer\CE_mesh.hpp" />
+    <ClInclude Include="Engine\src\Core\Asset\CE_mesh.hpp" />
     <ClInclude Include="Engine\src\Renderer\CE_renderer.hpp" />
-    <ClInclude Include="Engine\src\Renderer\CE_texture.hpp" />
+    <ClInclude Include="Engine\src\Core\Asset\CE_texture.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\src\Core\File\CE_file.cpp" />
     <ClCompile Include="Engine\src\Application\CE_application.cpp" />
     <ClCompile Include="Engine\src\CE_global.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -126,10 +129,11 @@
     <ClCompile Include="Engine\src\Core\ECS\CE_ecs.cpp" />
     <ClCompile Include="Engine\src\Core\ECS\CE_renderable.cpp" />
     <ClCompile Include="Engine\src\Core\ECS\CE_scene_entity.cpp" />
+    <ClCompile Include="Engine\src\Core\ECS\CE_transform.cpp" />
     <ClCompile Include="Engine\src\Renderer\CE_geometry.cpp" />
-    <ClCompile Include="Engine\src\Renderer\CE_mesh.cpp" />
+    <ClCompile Include="Engine\src\Core\Asset\CE_mesh.cpp" />
     <ClCompile Include="Engine\src\Renderer\CE_renderer.cpp" />
-    <ClCompile Include="Engine\src\Renderer\CE_texture.cpp" />
+    <ClCompile Include="Engine\src\Core\Asset\CE_texture.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -22,6 +22,9 @@ void Renderer::Init(GLint width, GLint height, GLFWwindow* window_reference, Ass
 	// Initialize framebuffer
 	mainFramebuffer = std::unique_ptr<Color[]>(new Color[width * height]);
 
+	// Initialize depthbuffer
+
+
 	// Set window reference
 	this->windowReference = window_reference;
 
@@ -335,7 +338,9 @@ void Renderer::DrawMesh(Mesh* mesh, Texture* texture, const cVec3& cameraPositio
 	for (auto& triangle : triangles)
 	{
 		// Check if triangle is culled
-		if (triangle.isCulled) continue;
+		if (triangle.isCulled) {
+			continue;
+		}
 
 		// Draw triangle
 		DrawTriangle(triangle.v1, triangle.v2, triangle.v3, texture);
@@ -362,7 +367,7 @@ void Renderer::DrawScreen()
 	// Model Matrices
 	const cMat4 m_model	= cMat4(1.0f); // Identity matrix
 	const cMat4 m_translate	= glm::translate(m_model,	cVec3(1.0f, -1.0f, 0.0f)); // Translation Matrix
-	const cMat4 m_scale		= glm::scale	(m_model,	cVec3(0.04f)); // Scaling Matrix
+	const cMat4 m_scale		= glm::scale	(m_model,	cVec3(1.0f)); // Scaling Matrix
 	const cMat4 m_rotate	= glm::rotate	(m_model, ttime, cVec3(0.0f, 1.0f, 0.0f)); // Rotation Matrix
 	//Jill
 	const cMat4 m_model1 = cMat4(1.0f); // Identity matrix
@@ -403,8 +408,8 @@ void Renderer::DrawScreen()
 	ClearScreen();
 
 	// Draw Meshes
-	DrawMesh(rAssetManager->GetMesh("leon"), rAssetManager->GetTexture("EMD48"), cameraPos, cameraFront, m_MVP);
-	DrawMesh(rAssetManager->GetMesh("Jill"), rAssetManager->GetTexture("CHAR11"), cameraPos, cameraFront, m_MVP1);
+	DrawMesh(rAssetManager->GetMesh("PyramidHead"), rAssetManager->GetTexture("body"), cameraPos, cameraFront, m_MVP);
+	DrawMesh(rAssetManager->GetMesh("leon"), rAssetManager->GetTexture("EMD48"), cameraPos, cameraFront, m_MVP1);
 	/*
 	DrawTriangle(tv1, tv2, tv3);
 	DrawTriangle(tv4, tv1, tv3);

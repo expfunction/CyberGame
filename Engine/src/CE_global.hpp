@@ -43,16 +43,19 @@ typedef std::string cString;
 typedef UUIDv4::UUID CUID;
 
 // Engine Includes
-#include "Core/CE_log.hpp"
-#include "Core/ECS/CE_ecs.hpp"
+#include "Core/File/CE_file.hpp"
+
 #include "Renderer/CE_geometry.hpp"
 
+#include "Core/CE_log.hpp"
+#include "Core/ECS/CE_ecs.hpp"
+#include "Core/ECS/CE_transform.hpp"
 #include "Core/ECS/CE_scene_entity.hpp"
 #include "Core/ECS/CE_renderable.hpp"
 
 #include "Core/Asset/CE_asset.hpp"
-#include "Renderer/CE_texture.hpp"
-#include "Renderer/CE_mesh.hpp"
+#include "Core/Asset/CE_texture.hpp"
+#include "Core/Asset/CE_mesh.hpp"
 #include "Core/Asset/CE_asset_manager.hpp"
 
 #include "Renderer/CE_renderer.hpp"

@@ -16,6 +16,9 @@
     <Filter Include="Renderer">
       <UniqueIdentifier>{7CCE658F-689B-C09A-91B4-AE427DE0F528}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\File">
+      <UniqueIdentifier>{ae2734e1-7b38-4c83-a5b3-927e7d20ff58}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\src\Application\CE_application.hpp">
@@ -46,11 +49,15 @@
     <ClInclude Include="Engine\src\Renderer\CE_renderer.hpp">
       <Filter>Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\Renderer\CE_texture.hpp">
-      <Filter>Renderer</Filter>
+    <ClInclude Include="Engine\src\Core\Asset\CE_mesh.hpp">
+      <Filter>Core\Asset</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\src\Renderer\CE_mesh.hpp">
-      <Filter>Renderer</Filter>
+    <ClInclude Include="Engine\src\Core\Asset\CE_texture.hpp">
+      <Filter>Core\Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\src\Core\ECS\CE_transform.hpp" />
+    <ClInclude Include="Engine\src\Core\File\CE_file.hpp">
+      <Filter>Core\File</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -79,11 +86,15 @@
     <ClCompile Include="Engine\src\Renderer\CE_renderer.cpp">
       <Filter>Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\Renderer\CE_texture.cpp">
-      <Filter>Renderer</Filter>
+    <ClCompile Include="Engine\src\Core\Asset\CE_mesh.cpp">
+      <Filter>Core\Asset</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\src\Renderer\CE_mesh.cpp">
-      <Filter>Renderer</Filter>
+    <ClCompile Include="Engine\src\Core\Asset\CE_texture.cpp">
+      <Filter>Core\Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\src\Core\ECS\CE_transform.cpp" />
+    <ClCompile Include="Engine\src\Core\File\CE_file.cpp">
+      <Filter>Core\File</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

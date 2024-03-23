@@ -8,6 +8,7 @@ namespace CyberEngine {
 			// Private Variables
 			static Renderer* renderer_;
 			std::unique_ptr<Color[]> mainFramebuffer;
+			std::unique_ptr<Color[]> depthBuffer;
 
 			AssetManager* rAssetManager;
 
@@ -15,8 +16,6 @@ namespace CyberEngine {
 			GLint main_viewport[4];
 			GLfloat yZoomFactor;
 			GLfloat xZoomFactor;
-
-			SceneEntity* currentScene;
 
 			// Private Functions
 			// Constructor
@@ -27,10 +26,12 @@ namespace CyberEngine {
 				height = 0;
 				yZoomFactor = 1.0f;
 				xZoomFactor = 1.0f;
+
 				// Initialize framebuffer
 				mainFramebuffer = nullptr;
 				windowReference = nullptr;
 				rAssetManager = nullptr;
+
 				// Initialize viewport
 				main_viewport[0] = 0;
 				main_viewport[1] = 0;

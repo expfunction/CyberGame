@@ -1,7 +1,7 @@
 #pragma once
 
 namespace CyberEngine {
-	// Color Struct
+	
 	struct Color
 	{
 		GLubyte r, g, b, a;
@@ -52,6 +52,81 @@ namespace CyberEngine {
 		Color operator*(GLfloat rhs) const
 		{
 			return Color(r * rhs, g * rhs, b * rhs, a * rhs);
+		}
+	};
+
+	struct DepthColor {
+		GLubyte d, a; // w = depth, a = alpha
+
+		DepthColor() = default;
+		constexpr DepthColor(GLubyte w, GLubyte a) : d(w), a(a) {}
+
+		DepthColor& operator=(const DepthColor& rhs) {
+			this->d = rhs.d;
+			this->a = rhs.a;
+			return *this;
+		}
+
+		DepthColor operator+(const DepthColor& rhs) const
+		{
+			return DepthColor(d + rhs.d, a + rhs.a);
+		}
+
+		DepthColor& operator+(const DepthColor& rhs)
+		{
+			d += rhs.d;
+			a += rhs.a;
+			return *this;
+		}
+
+		DepthColor& operator-(const DepthColor& rhs)
+		{
+			d -= rhs.d;
+			a -= rhs.a;
+			return *this;
+		}
+
+		DepthColor& operator*(const DepthColor& rhs)
+		{
+			d *= rhs.d;
+			a *= rhs.a;
+			return *this;
+		}
+
+		DepthColor operator*(GLfloat rhs) const
+		{
+			return DepthColor(d * rhs, a * rhs);
+		}
+
+		// Comparison operators - Depth Test
+		bool operator<(const DepthColor& rhs) const
+		{
+			return d < rhs.d;
+		}
+
+		bool operator>(const DepthColor& rhs) const
+		{
+			return d > rhs.d;
+		}
+
+		bool operator<=(const DepthColor& rhs) const
+		{
+			return d <= rhs.d;
+		}
+
+		bool operator>=(const DepthColor& rhs) const
+		{
+			return d >= rhs.d;
+		}
+
+		bool operator==(const DepthColor& rhs) const
+		{
+			return d == rhs.d;
+		}
+
+		bool operator!=(const DepthColor& rhs) const
+		{
+			return d != rhs.d;
 		}
 	};
 
