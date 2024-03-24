@@ -112,7 +112,7 @@
     <ClInclude Include="Engine\src\Core\ECS\CE_scene_entity.hpp" />
     <ClInclude Include="Engine\src\Core\ECS\CE_transform.hpp" />
     <ClInclude Include="Engine\src\Core\File\CE_file.hpp" />
-    <ClInclude Include="Engine\src\Renderer\CE_geometry.hpp" />
+    <ClInclude Include="Engine\src\Core\Math\CE_geometry.hpp" />
     <ClInclude Include="Engine\src\Core\Asset\CE_mesh.hpp" />
     <ClInclude Include="Engine\src\Renderer\CE_renderer.hpp" />
     <ClInclude Include="Engine\src\Core\Asset\CE_texture.hpp" />
@@ -130,7 +130,7 @@
     <ClCompile Include="Engine\src\Core\ECS\CE_renderable.cpp" />
     <ClCompile Include="Engine\src\Core\ECS\CE_scene_entity.cpp" />
     <ClCompile Include="Engine\src\Core\ECS\CE_transform.cpp" />
-    <ClCompile Include="Engine\src\Renderer\CE_geometry.cpp" />
+    <ClCompile Include="Engine\src\Core\Math\CE_geometry.cpp" />
     <ClCompile Include="Engine\src\Core\Asset\CE_mesh.cpp" />
     <ClCompile Include="Engine\src\Renderer\CE_renderer.cpp" />
     <ClCompile Include="Engine\src\Core\Asset\CE_texture.cpp" />

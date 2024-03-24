@@ -45,7 +45,7 @@ typedef UUIDv4::UUID CUID;
 // Engine Includes
 #include "Core/File/CE_file.hpp"
 
-#include "Renderer/CE_geometry.hpp"
+#include "Core/Math/CE_geometry.hpp"
 
 #include "Core/CE_log.hpp"
 #include "Core/ECS/CE_ecs.hpp"

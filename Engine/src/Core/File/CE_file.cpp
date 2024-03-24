@@ -1,6 +1,26 @@
 #include "CE_global.hpp"
 
 namespace CyberEngine {
+	bool File::CreateFile(cString fileName, cString fileExtension)
+	{
+		// Check if file exists
+		if (std::filesystem::exists(filePath))
+		{
+			CE_LOG_ERROR("File already exists: {0}", filePath);
+			return false;
+		}
+
+		// Try Open file as binary
+		std::ofstream file(filePath, std::ios::binary);
+		if (!file.is_open())
+		{
+			CE_LOG_ERROR("Failed to create file: {0}", filePath);
+			return false;
+		}
+
+		CE_LOG_INFO("Created file: {0}", filePath);
+		return false;
+	}
 	bool File::LoadFile()
 	{
 		// Check if file exists
@@ -30,29 +50,71 @@ namespace CyberEngine {
 			file.seekg(0, std::ios::beg);
 
 			// Read file into buffer
-			fileData = new GLubyte[fileSize];
-			file.read(fileData, fileSize);
+			fileData = std::make_unique<GLubyte[]>(fileSize);
+			file.read(reinterpret_cast<char*>(fileData.get()), fileSize);
 			file.close();
 		} else {
 			// Read file into buffer
 			std::string line;
 			while (std::getline(file, line))
 			{
-				fileBuffer += line + "\n";
+				fileDataString += line + "\n";
 			}
 			file.close();
 		}
 
 	}
+
 	bool File::SaveFile()
 	{
-		return false;
+		// Check if file exists
+		if (!std::filesystem::exists(filePath))
+		{
+			CE_LOG_ERROR("File does not exist: {0}", filePath);
+			return false;
+		}
+
+		if(isBinary) {
+			// Try Open file as binary
+			std::ofstream file(filePath, std::ios::binary);
+			if (!file.is_open())
+			{
+				CE_LOG_ERROR("Failed to open file: {0}", filePath);
+				return false;
+			}
+
+			// Write file into buffer
+			file.write(reinterpret_cast<char*>(fileData.get()), fileSize);
+			file.close();
+		} else {
+			// Read file into buffer
+			std::ofstream file(filePath);
+			if (!file.is_open())
+			{
+				CE_LOG_ERROR("Failed to open file: {0}", filePath);
+				return false;
+			}
+
+			// Write file into buffer
+			file << fileDataString;
+			file.close();
+		}
+		return true;
 	}
-	GLubyte* File::GetFileData()
+
+	std::unique_ptr<GLubyte[]> File::GetFileData()
 	{
 		if (isBinary)
-			return fileData;
+			return std::move(fileData);
 		else
-		return nullptr;
+			return nullptr;
+	}
+
+	void File::SetFileData(GLubyte* fileData)
+	{
+		if (isBinary)
+			this->fileData = std::unique_ptr<GLubyte[]>(fileData);
+		else
+			CE_LOG_ERROR("Cannot set file data for text file {0}", fileName);
 	}
 }
