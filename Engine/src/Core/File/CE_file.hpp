@@ -36,7 +36,6 @@ namespace CyberEngine {
 		void SetFileName(cString fileName) { this->fileName = fileName; }
 		void SetFileExtension(cString fileExtension) { this->fileExtension = fileExtension; }
 
-		bool CreateFile(cString fileName, cString fileExtension);
 		bool LoadFile();
 		bool SaveFile();
 

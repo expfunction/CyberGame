@@ -1,26 +1,6 @@
 #include "CE_global.hpp"
 
 namespace CyberEngine {
-	bool File::CreateFile(cString fileName, cString fileExtension)
-	{
-		// Check if file exists
-		if (std::filesystem::exists(filePath))
-		{
-			CE_LOG_ERROR("File already exists: {0}", filePath);
-			return false;
-		}
-
-		// Try Open file as binary
-		std::ofstream file(filePath, std::ios::binary);
-		if (!file.is_open())
-		{
-			CE_LOG_ERROR("Failed to create file: {0}", filePath);
-			return false;
-		}
-
-		CE_LOG_INFO("Created file: {0}", filePath);
-		return false;
-	}
 	bool File::LoadFile()
 	{
 		// Check if file exists
