@@ -52,6 +52,7 @@ typedef UUIDv4::UUID CUID;
 #include "Core/ECS/CE_transform.hpp"
 #include "Core/ECS/CE_scene_entity.hpp"
 #include "Core/ECS/CE_renderable.hpp"
+#include "Core/ECS/CE_scene.hpp"
 
 #include "Core/Asset/CE_asset.hpp"
 #include "Core/Asset/CE_texture.hpp"

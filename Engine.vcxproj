@@ -109,6 +109,7 @@
     <ClInclude Include="Engine\src\Core\CE_log.hpp" />
     <ClInclude Include="Engine\src\Core\ECS\CE_ecs.hpp" />
     <ClInclude Include="Engine\src\Core\ECS\CE_renderable.hpp" />
+    <ClInclude Include="Engine\src\Core\ECS\CE_scene.hpp" />
     <ClInclude Include="Engine\src\Core\ECS\CE_scene_entity.hpp" />
     <ClInclude Include="Engine\src\Core\ECS\CE_transform.hpp" />
     <ClInclude Include="Engine\src\Core\File\CE_file.hpp" />
@@ -118,6 +119,7 @@
     <ClInclude Include="Engine\src\Core\Asset\CE_texture.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\src\Core\ECS\CE_scene.cpp" />
     <ClCompile Include="Engine\src\Core\File\CE_file.cpp" />
     <ClCompile Include="Engine\src\Application\CE_application.cpp" />
     <ClCompile Include="Engine\src\CE_global.cpp">

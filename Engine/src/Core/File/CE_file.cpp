@@ -30,7 +30,7 @@ namespace CyberEngine {
 			file.seekg(0, std::ios::beg);
 
 			// Read file into buffer
-			fileData = std::make_unique<GLubyte[]>(fileSize);
+			fileData = std::make_unique<GLubyte*>(fileSize);
 			file.read(reinterpret_cast<char*>(fileData.get()), fileSize);
 			file.close();
 		} else {
@@ -45,7 +45,7 @@ namespace CyberEngine {
 
 	}
 
-	bool File::SaveFile()
+	bool File::SaveFile(const cString& fileNameAndPath, bool isBinary)
 	{
 		// Check if file exists
 		if (!std::filesystem::exists(filePath))
@@ -82,7 +82,7 @@ namespace CyberEngine {
 		return true;
 	}
 
-	std::unique_ptr<GLubyte[]> File::GetFileData()
+	std::unique_ptr<GLubyte*> File::GetFileData()
 	{
 		if (isBinary)
 			return std::move(fileData);
@@ -93,7 +93,7 @@ namespace CyberEngine {
 	void File::SetFileData(GLubyte* fileData)
 	{
 		if (isBinary)
-			this->fileData = std::unique_ptr<GLubyte[]>(fileData);
+			this->fileData = std::unique_ptr<GLubyte*>(fileData);
 		else
 			CE_LOG_ERROR("Cannot set file data for text file {0}", fileName);
 	}

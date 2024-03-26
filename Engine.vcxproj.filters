@@ -62,6 +62,7 @@
     <ClInclude Include="Engine\src\Core\Math\CE_geometry.hpp">
       <Filter>Core\Math</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\src\Core\ECS\CE_scene.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\src\Application\CE_application.cpp">
@@ -99,5 +100,6 @@
     <ClCompile Include="Engine\src\Core\Math\CE_geometry.cpp">
       <Filter>Core\Math</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\src\Core\ECS\CE_scene.cpp" />
   </ItemGroup>
 </Project>

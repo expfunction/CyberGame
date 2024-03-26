@@ -11,21 +11,25 @@ namespace CyberEngine {
 
 		bool isBinary;
 
-		std::unique_ptr<GLubyte[]> fileData;
+		std::unique_ptr<GLbyte*> fileData;
 		cString fileDataString;
 
 	public:
 
-		File(cString filePath) {
-			this->filePath = filePath;
-			this->fileName = "";
-			this->fileExtension = "";
+		File(cString fileNameAndPath) {
+			// Parse file name and extension
+			filePath = fileNameAndPath;
+			fileName = std::filesystem::path(fileNameAndPath).filename().string();
+			fileExtension = std::filesystem::path(fileNameAndPath).extension().string();
 			this->fileData = nullptr;
 			this->fileSize = 0;
 			this->isBinary = false;
 			fileDataString = "";
-
+			LoadFile();
 		}
+
+		
+
 		~File() = default;
 
 		cString GetFilePath() { return filePath;}
@@ -37,9 +41,9 @@ namespace CyberEngine {
 		void SetFileExtension(cString fileExtension) { this->fileExtension = fileExtension; }
 
 		bool LoadFile();
-		bool SaveFile();
+		bool SaveFile(const cString& fileNameAndPath, bool isBinary);
 
-		std::unique_ptr<GLubyte[]> GetFileData();
+		std::unique_ptr<GLubyte*> GetFileData();
 		void SetFileData(GLubyte *fileData);
 		bool IsBinary() { return isBinary; }
 		GLuint GetFileSize() { return fileSize; }
