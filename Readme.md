@@ -1,6 +1,6 @@
 # Cyber Engine
 
-Cyber Engine is a game and visualization engine that supports 2D and 3D graphics, audio, and input. It is written in C++ and uses its own custom rasterization engine for rendering and uses only CPU for processing. It is designed to be cross-platform and is currently supported on Windows, Linux, and MacOS.
+Cyber Engine is a game and visualization engine that supports 2D and 3D graphics, audio, and input. It is written in C++ and uses its own custom rasterization engine for rendering and uses only CPU for processing. It is designed to be cross-platform but is currently only supported on Windows.
 
 ## In Engine Screenshots
 ![Screenshot](SSGif.gif)
